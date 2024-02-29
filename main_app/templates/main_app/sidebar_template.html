@@ -90,7 +90,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-book"></i>
                         <p>
-                            Subject
+                            Programa
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -101,7 +101,7 @@
                                 class="nav-link  {% if add_subject == request.path %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>
-                                    Add Subject
+                                    Agregar
 
                                 </p>
                             </a>
@@ -130,7 +130,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-clock"></i>
                         <p>
-                            Cursos
+                            Tiempo
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -192,7 +192,7 @@
                     <a href="{{add_student}}" class="nav-link  {% if add_student == request.path %} active {% endif %}">
                         <i class="nav-icon fas fa-user-plus"></i>
                         <p>
-                            Add Student
+                            Agregar cliente
 
                         </p>
                     </a>
@@ -205,7 +205,7 @@
                         class="nav-link  {% if edit_student == request.path or manage_student == request.path %} active {% endif %}">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
-                            Manage Student
+                            Leads
 
                         </p>
                     </a>
@@ -217,22 +217,12 @@
                         class="nav-link {% if admin_notify_staff == request.path %} active {% endif %}">
                         <i class="nav-icon fas fa-bullhorn"></i>
                         <p>
-                            Notify Staff
+                            Notificaiones Asesores
 
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    {% url 'admin_notify_student' as admin_notify_student %}
-                    <a href="{{admin_notify_student}}"
-                        class="nav-link {% if admin_notify_student == request.path %} active {% endif %}">
-                        <i class="nav-icon fas fa-bullhorn"></i>
-                        <p>
-                            Notify Student
-
-                        </p>
-                    </a>
-                </li>
+               
 
                 <li class="nav-item">
                     {% url 'admin_view_attendance' as admin_view_attendance %}
@@ -427,7 +417,7 @@
                                                 class="nav-link {% if student_view_profile == request.path %} active {% endif %}">
                                                 <i class="nav-icon fas fa-address-card"></i>
                                                 <p>
-                                                    Update Profile
+                                                   Actualizar Perfil
 
                                                 </p>
                                             </a>

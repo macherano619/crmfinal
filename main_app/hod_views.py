@@ -29,7 +29,7 @@ def admin_home(request):
         subject_list.append(subject.name[:7])
         attendance_list.append(attendance_count)
 
-    # Total Subjects and students in Each Course
+  
     course_all = Course.objects.all()
     course_name_list = []
     subject_count_list = []
@@ -52,7 +52,6 @@ def admin_home(request):
         student_count_list_in_subject.append(student_count)
 
 
-    # For Students
     student_attendance_present_list=[]
     student_attendance_leave_list=[]
     student_name_list=[]
@@ -68,7 +67,7 @@ def admin_home(request):
         student_name_list.append(student.admin.first_name)
 
     context = {
-        'page_title': "Administrative Dashboard",
+        'page_title': "Dashboard",
         'total_students': total_students,
         'total_staff': total_staff,
         'total_course': total_course,
@@ -88,7 +87,7 @@ def admin_home(request):
 
 def add_staff(request):
     form = StaffForm(request.POST or None, request.FILES or None)
-    context = {'form': form, 'page_title': 'Add Staff'}
+    context = {'form': form, 'page_title': 'Agregar Asesor'}
     if request.method == 'POST':
         if form.is_valid():
             first_name = form.cleaned_data.get('first_name')
@@ -109,20 +108,20 @@ def add_staff(request):
                 user.address = address
                 user.staff.course = course
                 user.save()
-                messages.success(request, "Successfully Added")
+                messages.success(request, "Agregado Correctamente")
                 return redirect(reverse('add_staff'))
 
             except Exception as e:
-                messages.error(request, "Could Not Add " + str(e))
+                messages.error(request, "No se pudo cargar " + str(e))
         else:
-            messages.error(request, "Please fulfil all requirements")
+            messages.error(request, "Por favor cumple con todos los requisitos.")
 
     return render(request, 'hod_template/add_staff_template.html', context)
 
 
 def add_student(request):
     student_form = StudentForm(request.POST or None, request.FILES or None)
-    context = {'form': student_form, 'page_title': 'Add Student'}
+    context = {'form': student_form, 'page_title': 'Agregar Lead'}
     if request.method == 'POST':
         if student_form.is_valid():
             first_name = student_form.cleaned_data.get('first_name')
@@ -158,7 +157,7 @@ def add_course(request):
     form = CourseForm(request.POST or None)
     context = {
         'form': form,
-        'page_title': 'Add Course'
+        'page_title': 'Agregar Programa'
     }
     if request.method == 'POST':
         if form.is_valid():
@@ -180,7 +179,7 @@ def add_subject(request):
     form = SubjectForm(request.POST or None)
     context = {
         'form': form,
-        'page_title': 'Add Subject'
+        'page_title': 'Agregar Programa'
     }
     if request.method == 'POST':
         if form.is_valid():
@@ -193,7 +192,7 @@ def add_subject(request):
                 subject.staff = staff
                 subject.course = course
                 subject.save()
-                messages.success(request, "Successfully Added")
+                messages.success(request, "Añadido Correctamente")
                 return redirect(reverse('add_subject'))
 
             except Exception as e:
@@ -208,7 +207,7 @@ def manage_staff(request):
     allStaff = CustomUser.objects.filter(user_type=2)
     context = {
         'allStaff': allStaff,
-        'page_title': 'Manage Staff'
+        'page_title': 'Gestor de asesores'
     }
     return render(request, "hod_template/manage_staff.html", context)
 
@@ -217,7 +216,7 @@ def manage_student(request):
     students = CustomUser.objects.filter(user_type=3)
     context = {
         'students': students,
-        'page_title': 'Manage Students'
+        'page_title': 'Gestor de leads'
     }
     return render(request, "hod_template/manage_student.html", context)
 
@@ -226,7 +225,7 @@ def manage_course(request):
     courses = Course.objects.all()
     context = {
         'courses': courses,
-        'page_title': 'Manage Courses'
+        'page_title': 'Gestor Ciudades'
     }
     return render(request, "hod_template/manage_course.html", context)
 
@@ -392,7 +391,7 @@ def edit_subject(request, subject_id):
 
 def add_session(request):
     form = SessionForm(request.POST or None)
-    context = {'form': form, 'page_title': 'Add Session'}
+    context = {'form': form, 'page_title': 'Tiempo del programa'}
     if request.method == 'POST':
         if form.is_valid():
             try:
@@ -408,7 +407,7 @@ def add_session(request):
 
 def manage_session(request):
     sessions = Session.objects.all()
-    context = {'sessions': sessions, 'page_title': 'Manage Sessions'}
+    context = {'sessions': sessions, 'page_title': 'Gestionar Tiempo'}
     return render(request, "hod_template/manage_session.html", context)
 
 
@@ -580,7 +579,7 @@ def admin_view_profile(request):
     form = AdminForm(request.POST or None, request.FILES or None,
                      instance=admin)
     context = {'form': form,
-               'page_title': 'View/Edit Profile'
+               'page_title': 'Editar Prerfil'
                }
     if request.method == 'POST':
         try:
@@ -613,7 +612,7 @@ def admin_view_profile(request):
 def admin_notify_staff(request):
     staff = CustomUser.objects.filter(user_type=2)
     context = {
-        'page_title': "Send Notifications To Staff",
+        'page_title': "Enviar notificación",
         'allStaff': staff
     }
     return render(request, "hod_template/staff_notification.html", context)

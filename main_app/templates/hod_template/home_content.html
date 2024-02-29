@@ -2,6 +2,19 @@
 {% load static %}
 {% block page_title %}{{page_title}}{% endblock page_title %}
 {% block content %}
+<style>
+  .hidden-chart {
+      display: none;
+  }
+  .card-headers {
+    text-align: center; /* Centra el texto horizontalmente */
+    /* Opcionalmente, puedes agregar más estilos para centrar verticalmente */
+    /* line-height: 50px; */ /* Ajusta la altura de línea si es necesario */
+    /* height: 100px; */ /* Establece una altura fija si es necesario */
+    /* display: flex; */ /* Para centrar verticalmente usando flexbox */
+    /* align-items: center; */ /* Centra verticalmente los elementos */
+}
+</style>
 <section class="content">
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
@@ -12,12 +25,12 @@
                     <div class="inner">
                         <h3>{{total_students}}</h3>
 
-                        <p>Total Students</p>
+                        <p>Total de Leads</p>
                     </div>
                     <div class="icon">
                       <i class="nav-icon fas fa-user-graduate"></i>
                     </div>
-                    <a href="{% url 'manage_student' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{% url 'manage_student' %}" class="small-box-footer">Mas info <i class="fas fa-arrow-circle-right"></i></a>
 
                 </div>
             </div>
@@ -28,12 +41,12 @@
                     <div class="inner">
                         <h3>{{total_staff}}</h3>
 
-                        <p>Total Staff</p>
+                        <p>Total Asesores</p>
                     </div>
                     <div class="icon">
                       <i class="nav-icon fas fa-users"></i>
                     </div>
-                    <a href="{% url 'manage_staff' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{% url 'manage_staff' %}" class="small-box-footer">Mas info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -43,12 +56,12 @@
                     <div class="inner">
                         <h3>{{total_course}}</h3>
 
-                        <p>Total Course</p>
+                        <p>Programas Totales</p>
                     </div>
                     <div class="icon">
                       <i class="nav-icon fas fa-th-list"></i>
                     </div>
-                    <a href="{% url 'manage_course' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{% url 'manage_course' %}" class="small-box-footer">Mas info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -58,7 +71,7 @@
                     <div class="inner">
                         <h3>{{total_subject}}</h3>
 
-                        <p>Total Subjects</p>
+                        <p>Programas Totales</p>
                     </div>
                     <div class="icon">
                       <i class="nav-icon fas fa-book"></i>
@@ -71,11 +84,11 @@
         <!-- /.row -->
         <!-- Main row -->
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6  hidden-chart">
                 <!-- LINE CHART -->
                 <div class="card card-dark">
                   <div class="card-header">
-                    <h3 class="card-title">Staffs - Students Overview</h3>
+                    <h3 class="card-title">Leads - Estudiantes</h3>
     
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -92,8 +105,8 @@
                 </div>
                 <div class="col-md-6">
                     <div class="card card-dark">
-              <div class="card-header">
-                <h3 class="card-title">Attendance Per Subject</h3>
+             <div class="card-header  ">
+                <h3 class="card-title">Tota Leads por Programa</h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -113,11 +126,11 @@
         </div>
         <!-- /.row (main row) -->
         <div class="row">
-          <div class="col-lg-12">
+          <div class="col-lg-12  hidden-chart">
             <!-- BAR CHART -->
             <div class="card card-dark">
               <div class="card-header">
-                <h3 class="card-title">Student's Attendance & Leave Overview</h3>
+                <h3 class="card-title">Leads y Asesores</h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -142,11 +155,11 @@
         
         </div>
 
-        <div class="row">
+        <div class="row  hidden-chart">
 
           <div class="col-lg-6">
             <!-- PIE CHART -->
-            <div class="card card-dark">
+            <div class="card card-dark ">
               <div class="card-header">
                 <h3 class="card-title">Total Students in Each Course</h3>
 
@@ -190,7 +203,7 @@
   <script>
       $(document).ready(function(){
         var donutData        = {
-            labels: ['Students', 'Staff'],
+            labels: ['Leads', 'Asesores'],
             datasets: [
               {
                 data:[{{total_students}}, {{total_staff}}],
@@ -219,7 +232,7 @@
       labels  : subject_list,
       datasets: [
       {
-        label               : 'Attendance Per Subject',
+        label               : '',
         backgroundColor     : '#17A2B8',
         borderColor         : 'rgba(60,141,188,0.8)',
         pointRadius          : false,

@@ -23,14 +23,12 @@
 
 <body class="hold-transition login-page">
     <div class="login-box">
-        <div class="login-logo">
-           
-            <img class="mb-4" src={% static 'core/images/logo-ccp.png' %} >
-        </div>
-        <!-- /.login-logo -->
+        
+            <img src="{% static 'dist/img/logo-politecnica.png' %} "  class="brand-image  elevation-3" style="width: 360px; height: 180px;" >  
+        
         <div class="card">
             <div class="card-body login-card-body">
-                <!-- <p class="login-box-msg">Sign in to start your session</p> -->
+             
                 {% if messages %}
                 <div class="col-12">
                     {% for message in messages %}
@@ -53,7 +51,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input required type="password" name='password' class="form-control" placeholder="Contraseñas">
+                        <input required type="password" name='password' class="form-control" placeholder="Contraseña">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -71,13 +69,13 @@
                                 </label>
                             </div>
                         </div>
-                        <!-- /.col -->
+                       
                         <div class="col-4">
                             <button type="submit" class="btn btn-success btn-block">Iniciar</button>
                         </div>
 
 
-                        <!-- /.col -->
+                       
                     </div>
                 </form>
 
@@ -85,10 +83,10 @@
               
 
             </div>
-            <!-- /.login-card-body -->
+           
         </div>
     </div>
-    <!-- /.login-box -->
+    
 
     <!-- jQuery -->
     <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>

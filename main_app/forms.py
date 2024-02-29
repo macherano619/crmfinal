@@ -13,16 +13,28 @@ class FormSettings(forms.ModelForm):
 
 
 class CustomUserForm(FormSettings):
-    email = forms.EmailField(required=True)
-    gender = forms.ChoiceField(choices=[('M', 'Male'), ('F', 'Female')])
-    first_name = forms.CharField(required=True)
-    last_name = forms.CharField(required=True)
-    address = forms.CharField(widget=forms.Textarea)
-    password = forms.CharField(widget=forms.PasswordInput)
+    email = forms.EmailField(required=True, label="Correo electrónico")
+    gender = forms.ChoiceField(choices=[('H', 'Hombre'), ('M', 'Mujer')])
+    first_name = forms.CharField(required=True, label="Nombre")
+    last_name = forms.CharField(required=True, label="apellido")
+    address = forms.CharField(widget=forms.Textarea , label="Dirección")
+    password = forms.CharField(widget=forms.PasswordInput, label="Contraseña")
     widget = {
         'password': forms.PasswordInput(),
     }
-    profile_pic = forms.ImageField()
+    profile_pic = forms.ImageField(label="Foto")
+
+class CustomUserForm(FormSettings):
+    email = forms.EmailField(required=True, label="Correo electrónico")
+    gender = forms.ChoiceField(choices=[('H', 'Hombre'), ('M', 'Mujer')])
+    first_name = forms.CharField(required=True, label="Nombre")
+    last_name = forms.CharField(required=True, label="apellido")
+    address = forms.CharField(widget=forms.Textarea , label="Dirección")
+    password = forms.CharField(widget=forms.PasswordInput, label="Contraseña")
+    widget = {
+        'password': forms.PasswordInput(),
+    }
+    profile_pic = forms.ImageField(label="Foto")
 
     def __init__(self, *args, **kwargs):
         super(CustomUserForm, self).__init__(*args, **kwargs)
@@ -33,7 +45,7 @@ class CustomUserForm(FormSettings):
             for field in CustomUserForm.Meta.fields:
                 self.fields[field].initial = instance.get(field)
             if self.instance.pk is not None:
-                self.fields['password'].widget.attrs['placeholder'] = "Fill this only if you wish to update password"
+                self.fields['password'].widget.attrs['placeholder'] = "Complete esto solo si desea actualizar la contraseña"
 
     def clean_email(self, *args, **kwargs):
         formEmail = self.cleaned_data['email'].lower()
