@@ -7,7 +7,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <!-- general form elements -->
+                <!-- elementos de formulario general -->
                     <form method="POST">
                         {% csrf_token %}
                 <div class="card card-dark">
@@ -17,7 +17,7 @@
 
        
                     <!-- /.card-header -->
-                    <!-- form start -->
+                    <!-- inicio del formulario -->
                     <div class="card-body">
 
 
@@ -29,7 +29,7 @@
                     <!-- /.card-body -->
 
                     <div class="card-footer">
-                        <button type="submit" id='update_result' class="btn btn-primary btn-block">Update Result</button>
+                        <button type="submit" id='update_result' class="btn btn-primary btn-block">Actualizar Resultado</button>
                
                     </div>
                 </form>
@@ -77,9 +77,9 @@
             }).done(function (response) {
                 var json_data = JSON.parse(response)
                 if (json_data.length < 1) {
-                    alert("No data to display")
+                    alert("No hay información para mostrar")
                 } else {
-                    var div_data = "<option>Select Student</option>"
+                    var div_data = "<option>Seleccionar Estudiante</option>"
 
                     for (key in json_data) {
                         div_data += "<option value='" + json_data[key]['id'] + "'>" + json_data[key]['name'] + " </option>"
@@ -88,7 +88,7 @@
                     $("#id_student").html(div_data)
                 }
             }).fail(function (response) {
-                alert("Error in fetching students")
+                alert("Error al buscar estudiantes")
             })
                }
 
@@ -114,7 +114,7 @@
                     }
                 }).done(function (response) {
                     if (response == 'False') {
-                        alert("No data to display")
+                        alert("No hay información para mostrar")
                     } else {
                         var json_data = JSON.parse(response)
                         
@@ -128,7 +128,7 @@
 
                     }
                 }).fail(function (response) {
-                    alert("Error in fetching students")
+                    alert("Error al buscar estudiantes")
                 })
                }
 

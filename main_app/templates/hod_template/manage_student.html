@@ -18,12 +18,12 @@
                             <thead class="thead-dark">
                                 <tr>
                                     <th>#</th>
-                                    <th>Full Name</th>
-                                    <th>Email</th>
-                                    <th>Gender</th>
-                                    <th>Course</th>
-                                    <th>Avatar</th>
-                                    <th>Actions</th>
+                                    <th>Nombre Completo</th>
+                                    <th>Correo</th>
+                                    <th>Genero</th>
+                                    <th>Curso</th>
+                                    <th>Foto</th>
+                                    <th>Aciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -43,8 +43,8 @@
                                         {% endif %}
                                     </td>
                                     
-                                    <td><a href="{% url 'edit_student' student.student.id %}" class="btn btn-info">Edit</a> -
-                                        <a href="{% url 'delete_student' student.student.id %}" class="btn btn-danger" onclick="return confirm('Are you sure about this ?')">Delete</a>
+                                    <td><a href="{% url 'edit_student' student.student.id %}" class="btn btn-info">Editar</a> -
+                                        <a href="{% url 'delete_student' student.student.id %}" class="btn btn-danger" onclick="return confirm('¿Estas seguro acerca de esto?')">Eliminar</a>
 
                                     </td>
                                 </tr>

@@ -18,12 +18,12 @@
                             <thead class="thead-dark">
                                 <tr>
                                     <th>#</th>
-                                    <th>Full Name</th>
-                                    <th>Email</th>
-                                    <th>Gender</th>
-                                    <th>Course</th>
-                                    <th>Avatar</th>
-                                    <th>Action</th>
+                                    <th>Nombre Completo</th>
+                                    <th>Correo</th>
+                                    <th>Genero</th>
+                                    <th>Curso</th>
+                                    <th>Foto</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -42,7 +42,7 @@
                                             src="{{staff.profile_pic}}" alt="">
                                         {% endif %}
                                     </td>
-                                    <td><button data-toggle = "modal" data-target = "#myModal"class="btn btn-primary show_notification" value="{{staff.id}}"> Enviar</button> 
+                                    <td><button data-toggle = "modal" data-target = "#myModal"class="btn btn-primary show_notification" value="{{staff.id}}">Enviar Notificaciones</button> 
                                     </td>
                                 </tr>
                                 {% endfor %}
@@ -77,11 +77,11 @@
          
          <div class = "modal-footer">
             <button type = "button" class = "btn btn-danger" data-dismiss = "modal">
-               Close
+               Cerrar
             </button>
             
             <button type = "button" id='send' class = "btn btn-success send_notification">
-               Enviar Notificaiones
+               Enviar
             </button>
          </div>
          
@@ -111,14 +111,14 @@
         }).done(function (response) {
            
           if (response == 'True'){
-            alert("Notification Sent");
+            alert("Notificación Enviada");
             location.reload();
           }else{
-            alert("Notification could not be saved. Please try again.");
+            alert("No se pudo guardar la notificación. Inténtalo de nuevo.");
           }
            
         }).fail(function (response) {
-            alert("Error in saving token")
+            alert("Error al guardar el token")
         })
 
     }

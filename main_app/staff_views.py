@@ -63,7 +63,8 @@ def get_students(request):
         for student in students:
             data = {
                     "id": student.id,
-                    "name": student.admin.last_name + " " + student.admin.first_name
+                    "name": student.admin.last_name + " " + student.admin.first_name,
+                    "address":student.admin.address
                     }
             student_data.append(data)
         return JsonResponse(json.dumps(student_data), content_type='application/json', safe=False)
@@ -174,7 +175,7 @@ def staff_feedback(request):
     context = {
         'form': form,
         'feedbacks': FeedbackStaff.objects.filter(staff=staff),
-        'page_title': 'Add Feedback'
+        'page_title': 'Feedback'
     }
     if request.method == 'POST':
         if form.is_valid():
@@ -194,7 +195,7 @@ def staff_feedback(request):
 def staff_view_profile(request):
     staff = get_object_or_404(Staff, admin=request.user)
     form = StaffEditForm(request.POST or None, request.FILES or None,instance=staff)
-    context = {'form': form, 'page_title': 'View/Update Profile'}
+    context = {'form': form, 'page_title': 'Ver/ Actualizar Perfil'}
     if request.method == 'POST':
         try:
             if form.is_valid():
@@ -218,7 +219,7 @@ def staff_view_profile(request):
                 admin.gender = gender
                 admin.save()
                 staff.save()
-                messages.success(request, "Profile Updated!")
+                messages.success(request, "Perfil Actualizado!")
                 return redirect(reverse('staff_view_profile'))
             else:
                 messages.error(request, "Invalid Data Provided")
@@ -248,7 +249,7 @@ def staff_view_notification(request):
     notifications = NotificationStaff.objects.filter(staff=staff)
     context = {
         'notifications': notifications,
-        'page_title': "View Notifications"
+        'page_title': "Ver Notificiones"
     }
     return render(request, "staff_template/staff_view_notification.html", context)
 
@@ -258,7 +259,7 @@ def staff_add_result(request):
     subjects = Subject.objects.filter(staff=staff)
     sessions = Session.objects.all()
     context = {
-        'page_title': 'Result Upload',
+        'page_title': 'Leads',
         'subjects': subjects,
         'sessions': sessions
     }
@@ -276,7 +277,7 @@ def staff_add_result(request):
                 data.exam = exam
                 data.test = test
                 data.save()
-                messages.success(request, "Scores Updated")
+                messages.success(request, "Actualizado")
             except:
                 result = StudentResult(student=student, subject=subject, test=test, exam=exam)
                 result.save()

@@ -7,7 +7,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <!-- general form elements -->
+                <!-- elementos de formulario generales -->
                     <form method="POST">
                         {% csrf_token %}
                 <div class="card card-dark">
@@ -16,13 +16,13 @@
                     </div>
 
        
-                    <!-- /.card-header -->
-                    <!-- form start -->
+                    <!-- encabezado de la tarjeta -->
+                    <!-- inicio del formulario -->
                     <div class="card-body">
 
 
                         <div class="form-group">
-                            <label>Subject</label>
+                            <label>Programa</label>
                             <select name="subject" class="form-control" id='subject'>
                                 <option value="">----</option>
                                 {% for subject in subjects  %}
@@ -33,7 +33,7 @@
 
 
                         <div class="form-group">
-                            <label>Session Year</label>
+                            <label>Tiempo</label>
                             <select name="session" id='session' class="form-control">
                                 <option value="">----</option>
                                 {% for session in sessions  %}
@@ -44,18 +44,17 @@
 
 
                     </div>
-                    <!-- /.card-body -->
+                    <!-- /.cuerpo de la tarjeta -->
 
                     <div class="card-footer">
-                        <button type="button" id='fetch_student' class="btn btn-primary btn-block">Fetch
-                            Students</button>
+                        <button type="button" id='fetch_student' class="btn btn-primary btn-block">Buscar Clientes</button>
                         <div class="form-group" id="student_data">
 
                         </div>
                     </div>
                 </form>
                 </div>
-                <!-- /.card -->
+                <!-- /.tarjeta -->
 
             </div>
         </div>
@@ -74,7 +73,7 @@
             var session = $("#session").val()
             $("#student_data").html(null)
 if (subject.length  == 0 || session.length == 0){
-    alert("Please select session and subject");
+    alert("Por favor selecciona la Programa y la Tiempo");
     return false;
 }
             $.ajax({
@@ -87,19 +86,19 @@ if (subject.length  == 0 || session.length == 0){
             }).done(function (response) {
                 var json_data = JSON.parse(response)
                 if (json_data.length < 1) {
-                    alert("No data to display")
+                    alert("no hay información para mostrar")
                 } else {
-                    var div_data = "<hr/><div class='form-group'> <label> Student List</label> <select class='student_list form-control' name='student_list'> "
+                    var div_data = "<hr/><div class='form-group'> <label> Lista Leads</label> <select class='student_list form-control' name='student_list'> "
 
                     for (key in json_data) {
-                        div_data += "<option value='" + json_data[key]['id'] + "'>" + json_data[key]['name'] + " </option>"
+                        div_data += "<option value='" + json_data[key]['id'] + "'>" + json_data[key]['name'] +" - " + json_data[key]['address'] + " </option>"
                     }
                     div_data += "</select></div>"
-                    div_data += "<div class='form-group row'> <div class='col-md-6'> <label> Resultado </label> <input class='form-control' placeholder='Descripción'  name='test' required type='text' />   </div><div class='col-md-6'><label> Resultado Cita </label>  <input class='form-control' placeholder='Descripción'  name='exam' required type='text' /> </div></div><div class='form-group'><button id='save_attendance' class='btn btn-success' type='submit'>Save Result</button></div></div>"
+                    div_data += "<div class='form-group row'> <div class='col-md-6'> <label> Detalle </label> <input class='form-control' placeholder='Descripción'  name='test' required type='text' />   </div><div class='col-md-6'><label> Resultado Cita </label>  <input class='form-control' placeholder='Descripción'  name='exam' required type='text' /> </div></div><div class='form-group'><button id='save_attendance' class='btn btn-success' type='submit'>Guardar Resultado</button></div></div>"
                     $("#student_data").html(div_data)
                 }
             }).fail(function (response) {
-                alert("Error in fetching students")
+                alert("Error al buscar cliente")
             })
 
 

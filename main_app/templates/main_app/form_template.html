@@ -5,9 +5,9 @@
 
         {% for field in form  %}
         <div class="form-group">
-            {{field.errors}}
-            {{field.label_tag}}
-            {{field}}
+            {{ field.errors }}
+            {{ field.label_tag }}
+            {{ field }}
 
         </div>
         {% endfor %}
@@ -21,9 +21,9 @@
     <div class="card-footer">
         <button type="submit" class="btn btn-success btn-block">
             {% if button_text %}
-            {{button_text}}
+            {{ button_text }}
             {% else %}
-            Submit
+            Enviar
             {% endif %}
 
         </button>

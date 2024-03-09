@@ -29,7 +29,7 @@ def admin_home(request):
         subject_list.append(subject.name[:7])
         attendance_list.append(attendance_count)
 
-  
+    # Total Subjects and students in Each Course
     course_all = Course.objects.all()
     course_name_list = []
     subject_count_list = []
@@ -52,6 +52,7 @@ def admin_home(request):
         student_count_list_in_subject.append(student_count)
 
 
+    # For Students
     student_attendance_present_list=[]
     student_attendance_leave_list=[]
     student_name_list=[]
@@ -67,7 +68,7 @@ def admin_home(request):
         student_name_list.append(student.admin.first_name)
 
     context = {
-        'page_title': "Dashboard",
+        'page_title': "Administrative Dashboard",
         'total_students': total_students,
         'total_staff': total_staff,
         'total_course': total_course,
@@ -108,20 +109,20 @@ def add_staff(request):
                 user.address = address
                 user.staff.course = course
                 user.save()
-                messages.success(request, "Agregado Correctamente")
+                messages.success(request, "Agregado exitosamente")
                 return redirect(reverse('add_staff'))
 
             except Exception as e:
-                messages.error(request, "No se pudo cargar " + str(e))
+                messages.error(request, "No se pudo agregar " + str(e))
         else:
-            messages.error(request, "Por favor cumple con todos los requisitos.")
+            messages.error(request, "Por favor cumple con todos los requisitos")
 
     return render(request, 'hod_template/add_staff_template.html', context)
 
 
 def add_student(request):
     student_form = StudentForm(request.POST or None, request.FILES or None)
-    context = {'form': student_form, 'page_title': 'Agregar Lead'}
+    context = {'form': student_form, 'page_title': 'Agregar Cliente'}
     if request.method == 'POST':
         if student_form.is_valid():
             first_name = student_form.cleaned_data.get('first_name')
@@ -130,7 +131,7 @@ def add_student(request):
             email = student_form.cleaned_data.get('email')
             gender = student_form.cleaned_data.get('gender')
             password = student_form.cleaned_data.get('password')
-            course = student_form.cleaned_data.get('course')
+            curso = student_form.cleaned_data.get('course')
             session = student_form.cleaned_data.get('session')
             passport = request.FILES['profile_pic']
             fs = FileSystemStorage()
@@ -142,14 +143,14 @@ def add_student(request):
                 user.gender = gender
                 user.address = address
                 user.student.session = session
-                user.student.course = course
+                user.student.course = curso
                 user.save()
-                messages.success(request, "Successfully Added")
+                messages.success(request, "Agregado exitosamente")
                 return redirect(reverse('add_student'))
             except Exception as e:
-                messages.error(request, "Could Not Add: " + str(e))
+                messages.error(request, "No se pudo agregar: " + str(e))
         else:
-            messages.error(request, "Could Not Add: ")
+            messages.error(request, "No se pudo agregar: ")
     return render(request, 'hod_template/add_student_template.html', context)
 
 
@@ -157,7 +158,7 @@ def add_course(request):
     form = CourseForm(request.POST or None)
     context = {
         'form': form,
-        'page_title': 'Agregar Programa'
+        'page_title': 'Agregar Curso'
     }
     if request.method == 'POST':
         if form.is_valid():
@@ -166,12 +167,12 @@ def add_course(request):
                 course = Course()
                 course.name = name
                 course.save()
-                messages.success(request, "Successfully Added")
+                messages.success(request, "Agregado exitosamente")
                 return redirect(reverse('add_course'))
             except:
-                messages.error(request, "Could Not Add")
+                messages.error(request, "No se pudo agregar")
         else:
-            messages.error(request, "Could Not Add")
+            messages.error(request, "No se pudo agregar")
     return render(request, 'hod_template/add_course_template.html', context)
 
 
@@ -192,13 +193,13 @@ def add_subject(request):
                 subject.staff = staff
                 subject.course = course
                 subject.save()
-                messages.success(request, "Añadido Correctamente")
+                messages.success(request, "Agregado exitosamente")
                 return redirect(reverse('add_subject'))
 
             except Exception as e:
-                messages.error(request, "Could Not Add " + str(e))
+                messages.error(request, "No se pudo agregar " + str(e))
         else:
-            messages.error(request, "Fill Form Properly")
+            messages.error(request, "Complete el formulario correctamente")
 
     return render(request, 'hod_template/add_subject_template.html', context)
 
@@ -207,7 +208,7 @@ def manage_staff(request):
     allStaff = CustomUser.objects.filter(user_type=2)
     context = {
         'allStaff': allStaff,
-        'page_title': 'Gestor de asesores'
+        'page_title': 'Gestionar Asesores'
     }
     return render(request, "hod_template/manage_staff.html", context)
 
@@ -216,7 +217,7 @@ def manage_student(request):
     students = CustomUser.objects.filter(user_type=3)
     context = {
         'students': students,
-        'page_title': 'Gestor de leads'
+        'page_title': 'Gestionar Estudiantes'
     }
     return render(request, "hod_template/manage_student.html", context)
 
@@ -225,7 +226,7 @@ def manage_course(request):
     courses = Course.objects.all()
     context = {
         'courses': courses,
-        'page_title': 'Gestor Ciudades'
+        'page_title': 'Gestionar Ciudades'
     }
     return render(request, "hod_template/manage_course.html", context)
 
@@ -234,7 +235,7 @@ def manage_subject(request):
     subjects = Subject.objects.all()
     context = {
         'subjects': subjects,
-        'page_title': 'Manage Subjects'
+        'page_title': 'Gestionar Programas'
     }
     return render(request, "hod_template/manage_subject.html", context)
 
@@ -276,7 +277,7 @@ def edit_staff(request, staff_id):
                 staff.course = course
                 user.save()
                 staff.save()
-                messages.success(request, "Successfully Updated")
+                messages.success(request, "Actualizado exitosamente")
                 return redirect(reverse('edit_staff', args=[staff_id]))
             except Exception as e:
                 messages.error(request, "Could Not Update " + str(e))
@@ -327,12 +328,12 @@ def edit_student(request, student_id):
                 student.course = course
                 user.save()
                 student.save()
-                messages.success(request, "Successfully Updated")
+                messages.success(request, "Actualizado exitosamente")
                 return redirect(reverse('edit_student', args=[student_id]))
             except Exception as e:
                 messages.error(request, "Could Not Update " + str(e))
         else:
-            messages.error(request, "Please Fill Form Properly!")
+            messages.error(request, "Please Complete el formulario correctamente!")
     else:
         return render(request, "hod_template/edit_student_template.html", context)
 
@@ -352,7 +353,7 @@ def edit_course(request, course_id):
                 course = Course.objects.get(id=course_id)
                 course.name = name
                 course.save()
-                messages.success(request, "Successfully Updated")
+                messages.success(request, "Actualizado exitosamente")
             except:
                 messages.error(request, "Could Not Update")
         else:
@@ -367,7 +368,7 @@ def edit_subject(request, subject_id):
     context = {
         'form': form,
         'subject_id': subject_id,
-        'page_title': 'Edit Subject'
+        'page_title': 'Editar Materia'
     }
     if request.method == 'POST':
         if form.is_valid():
@@ -380,28 +381,28 @@ def edit_subject(request, subject_id):
                 subject.staff = staff
                 subject.course = course
                 subject.save()
-                messages.success(request, "Successfully Updated")
+                messages.success(request, "Actualizado exitosamente")
                 return redirect(reverse('edit_subject', args=[subject_id]))
             except Exception as e:
-                messages.error(request, "Could Not Add " + str(e))
+                messages.error(request, "No se pudo agregar " + str(e))
         else:
-            messages.error(request, "Fill Form Properly")
+            messages.error(request, "Complete el formulario correctamente")
     return render(request, 'hod_template/edit_subject_template.html', context)
 
 
 def add_session(request):
     form = SessionForm(request.POST or None)
-    context = {'form': form, 'page_title': 'Tiempo del programa'}
+    context = {'form': form, 'page_title': 'Agregar Tiempo'}
     if request.method == 'POST':
         if form.is_valid():
             try:
                 form.save()
-                messages.success(request, "Session Created")
+                messages.success(request, "Sesión Creada")
                 return redirect(reverse('add_session'))
             except Exception as e:
-                messages.error(request, 'Could Not Add ' + str(e))
+                messages.error(request, 'No se pudo agregar ' + str(e))
         else:
-            messages.error(request, 'Fill Form Properly ')
+            messages.error(request, 'Complete el formulario correctamente ')
     return render(request, "hod_template/add_session_template.html", context)
 
 
@@ -415,7 +416,7 @@ def edit_session(request, session_id):
     instance = get_object_or_404(Session, id=session_id)
     form = SessionForm(request.POST or None, instance=instance)
     context = {'form': form, 'session_id': session_id,
-               'page_title': 'Edit Session'}
+               'page_title': 'Ediar Tiempo'}
     if request.method == 'POST':
         if form.is_valid():
             try:
@@ -452,7 +453,7 @@ def student_feedback_message(request):
         feedbacks = FeedbackStudent.objects.all()
         context = {
             'feedbacks': feedbacks,
-            'page_title': 'Student Feedback Messages'
+            'page_title': 'Comentarios de los estudiantes'
         }
         return render(request, 'hod_template/student_feedback_template.html', context)
     else:
@@ -473,7 +474,7 @@ def staff_feedback_message(request):
         feedbacks = FeedbackStaff.objects.all()
         context = {
             'feedbacks': feedbacks,
-            'page_title': 'Staff Feedback Messages'
+            'page_title': 'Feedback Asesores'
         }
         return render(request, 'hod_template/staff_feedback_template.html', context)
     else:
@@ -494,7 +495,7 @@ def view_staff_leave(request):
         allLeave = LeaveReportStaff.objects.all()
         context = {
             'allLeave': allLeave,
-            'page_title': 'Leave Applications From Staff'
+            'page_title': 'Solicitudes de Profesores'
         }
         return render(request, "hod_template/staff_leave_view.html", context)
     else:
@@ -519,7 +520,7 @@ def view_student_leave(request):
         allLeave = LeaveReportStudent.objects.all()
         context = {
             'allLeave': allLeave,
-            'page_title': 'Leave Applications From Students'
+            'page_title': 'Solicitudes de Estudiantes'
         }
         return render(request, "hod_template/student_leave_view.html", context)
     else:
@@ -544,7 +545,7 @@ def admin_view_attendance(request):
     context = {
         'subjects': subjects,
         'sessions': sessions,
-        'page_title': 'View Attendance'
+        'page_title': 'Ver Asistencia'
     }
 
     return render(request, "hod_template/admin_view_attendance.html", context)
@@ -579,7 +580,7 @@ def admin_view_profile(request):
     form = AdminForm(request.POST or None, request.FILES or None,
                      instance=admin)
     context = {'form': form,
-               'page_title': 'Editar Prerfil'
+               'page_title': 'Ver/Editar Prerfil'
                }
     if request.method == 'POST':
         try:
@@ -599,20 +600,20 @@ def admin_view_profile(request):
                 custom_user.first_name = first_name
                 custom_user.last_name = last_name
                 custom_user.save()
-                messages.success(request, "Profile Updated!")
+                messages.success(request, "¡Perfil actualizado!")
                 return redirect(reverse('admin_view_profile'))
             else:
-                messages.error(request, "Invalid Data Provided")
+                messages.error(request, "Datos no válidos proporcionados")
         except Exception as e:
             messages.error(
-                request, "Error Occured While Updating Profile " + str(e))
+                request, "Se produjo un error al actualizar el perfil " + str(e))
     return render(request, "hod_template/admin_view_profile.html", context)
 
 
 def admin_notify_staff(request):
     staff = CustomUser.objects.filter(user_type=2)
     context = {
-        'page_title': "Enviar notificación",
+        'page_title': "Enviar Notivicaciones a Profesores",
         'allStaff': staff
     }
     return render(request, "hod_template/staff_notification.html", context)
@@ -621,7 +622,7 @@ def admin_notify_staff(request):
 def admin_notify_student(request):
     student = CustomUser.objects.filter(user_type=3)
     context = {
-        'page_title': "Send Notifications To Students",
+        'page_title': "Enviar Notivicaciones a Estudiantes",
         'students': student
     }
     return render(request, "hod_template/student_notification.html", context)
@@ -684,14 +685,14 @@ def send_staff_notification(request):
 def delete_staff(request, staff_id):
     staff = get_object_or_404(CustomUser, staff__id=staff_id)
     staff.delete()
-    messages.success(request, "Staff deleted successfully!")
+    messages.success(request, "eliminado exitosamente!")
     return redirect(reverse('manage_staff'))
 
 
 def delete_student(request, student_id):
     student = get_object_or_404(CustomUser, student__id=student_id)
     student.delete()
-    messages.success(request, "Student deleted successfully!")
+    messages.success(request, "eliminado exitosamente!")
     return redirect(reverse('manage_student'))
 
 
@@ -699,7 +700,7 @@ def delete_course(request, course_id):
     course = get_object_or_404(Course, id=course_id)
     try:
         course.delete()
-        messages.success(request, "Course deleted successfully!")
+        messages.success(request, "eliminado exitosamente!")
     except Exception:
         messages.error(
             request, "Sorry, some students are assigned to this course already. Kindly change the affected student course and try again")
@@ -709,7 +710,7 @@ def delete_course(request, course_id):
 def delete_subject(request, subject_id):
     subject = get_object_or_404(Subject, id=subject_id)
     subject.delete()
-    messages.success(request, "Subject deleted successfully!")
+    messages.success(request, "eliminado exitosamente!")
     return redirect(reverse('manage_subject'))
 
 
@@ -717,7 +718,7 @@ def delete_session(request, session_id):
     session = get_object_or_404(Session, id=session_id)
     try:
         session.delete()
-        messages.success(request, "Session deleted successfully!")
+        messages.success(request, "eliminado exitosamente!")
     except Exception:
         messages.error(
             request, "There are students assigned to this session. Please move them to another session.")

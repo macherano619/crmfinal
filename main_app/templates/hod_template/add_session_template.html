@@ -14,7 +14,18 @@
                         <h3 class="card-title">{{page_title}}</h3>
                     </div>
 
-                    {% include "main_app/form_template.html" with messages=messages  form=form button_text="Agregar tiempo"%}
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <label for="id_start_year">Año de inicio:</label>
+                        {{ form.start_year }}
+                        <br>
+                        <label for="id_end_year">Año de fin:</label>
+                        {{ form.end_year }}
+                        <br>
+                        <!-- Otros campos del formulario aquí -->
+                        <button type="submit" class="btn btn-success">Agregar</button>
+                    </form>
+
                 </div>
                 <!-- /.card -->
 

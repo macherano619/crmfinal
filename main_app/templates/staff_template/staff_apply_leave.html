@@ -8,26 +8,26 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <!-- general form elements -->
+                <!-- elementos generales del formulario -->
                 <div class="card card-dark">
                     <div class="card-header">
                         <h3 class="card-title">{{page_title}}</h3>
                     </div>
 
-                    {% include "main_app/form_template.html" with messages=messages  form=form button_text="Apply For Leave"%}
+                    {% include "main_app/form_template.html" with messages=messages  form=form button_text="Aplicar Permiso de Ausencia"%}
                 </div>
                 <!-- /.card -->
 <div class="card card-default">
-    <div class="card-header"><h3 class="card-title"><b>Leave History</b></h3>
+    <div class="card-header"><h3 class="card-title"><b>Historial de Ausencias</b></h3>
    <div class="table">
 
        <table class="table table-bordered table-hover">
            <thead class="thead-dark">
             <tr>
                 <th>ID</th>
-                <th>Date</th>
-                <th>Message</th>
-             <th>Status</th>
+                <th>Fecha</th>
+                <th>Mensaje</th>
+             <th>Estado</th>
          </tr>
            </thead>
         {% for leave in leave_history %}
@@ -38,12 +38,12 @@
               <td>
                   
                   {% if leave.status == 0 %}
-                  <span class="badge badge-warning">Pending</span>
+                  <span class="badge badge-warning">Pendiente</span>
                   {% elif leave.status == 1 %}
-                  <span class="badge badge-success">Accepted</span>
+                  <span class="badge badge-success">Aceptado</span>
                   
                     {% else %}
-                    <span class="badge badge-danger">Rejected</span>
+                    <span class="badge badge-danger">Rechazado</span>
                     
                     {% endif %}
                     

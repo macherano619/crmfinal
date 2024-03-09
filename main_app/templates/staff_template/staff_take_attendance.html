@@ -89,7 +89,7 @@ if (subject.length  == 0 || session.length == 0){
             }).done(function (response) {
                 var json_data = JSON.parse(response)
                 if (json_data.length < 1) {
-                    alert("No data to display")
+                    alert("no hay información para mostrar")
                 } else {
                     var div_data = "<hr/><div class='form-group'></div><div class='form-group'> <label>Attendance Date</label><input type='date' class='form-control' name='attendance_date' id='attendance_date' ><div class='row'>"
 
@@ -101,7 +101,7 @@ if (subject.length  == 0 || session.length == 0){
                     $("#student_data").html(div_data)
                 }
             }).fail(function (response) {
-                alert("Error in fetching students")
+                alert("Error al buscar estudiantes")
             })
 
 

@@ -7,7 +7,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <!-- general form elements -->
+                <!-- elementos generales del formulario -->
                 <div class="card card-dark">
                     <div class="card-header">
                         <h3 class="card-title">{{page_title}}</h3>
@@ -15,7 +15,7 @@
 
 
                     <!-- /.card-header -->
-                    <!-- form start -->
+                    <!-- inicio del formulario -->
                     <div class="card-body">
 
 
@@ -27,8 +27,8 @@
               <table class="table table-bordered">
                   <tr>
                       <th>#</th>
-                      <th>Date</th>
-                      <th>Message</th>
+                      <th>Fecha</th>
+                      <th>Mensaje</th>
                   </tr>
                   {% for notification in  notifications %}
                     <tr>
@@ -50,5 +50,3 @@
     </div>
 </section>
 {% endblock content %}
-
-

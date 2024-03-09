@@ -1,6 +1,5 @@
 {% extends 'main_app/base.html' %}
 {% load static %}
-
 {% block page_title %}{{page_title}}{% endblock page_title %}
 {% block custom_css %}
   <style>
@@ -28,7 +27,7 @@
                         <h3 class="card-title">{{page_title}}</h3>
                     </div>
 
-                    {% include "main_app/form_template.html" with messages=messages  form=form button_text="Añadir Asesor"%}
+                    {% include "main_app/form_template.html" with messages=messages  form=form button_text="Agregar Asesor"%}
                 </div>
                 <!-- /.card -->
 
@@ -55,11 +54,11 @@
             }).done(function(response){
                 if (response == "True"){
                     $(".email_error").remove()
-                    $("<span class='invalid email_error'>Email address Already Exist</span>").insertAfter("#id_email");
+                    $("<span class='invalid email_error'>Email Address Already Exist</span>").insertAfter("#id_email");
                 }
                 else{
                     $(".email_error").remove()
-                    $("<span class='valid email_error'>Email address Available</span>").insertAfter("#id_email");
+                    $("<span class='valid email_error'>Email Address Available</span>").insertAfter("#id_email");
                 }
             }).fail(function(response){
                 $("<span class='alert alert-warning'>Server Could Not Process This</span>").insertAfter("#id_email");

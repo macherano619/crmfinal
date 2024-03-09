@@ -7,29 +7,17 @@ from .models import *
 class FormSettings(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(FormSettings, self).__init__(*args, **kwargs)
-        # Here make some changes such as:
+        # Aquí se pueden realizar algunos cambios, como:
         for field in self.visible_fields():
             field.field.widget.attrs['class'] = 'form-control'
 
 
 class CustomUserForm(FormSettings):
     email = forms.EmailField(required=True, label="Correo electrónico")
-    gender = forms.ChoiceField(choices=[('H', 'Hombre'), ('M', 'Mujer')])
+    gender = forms.ChoiceField(choices=[('H', 'Hombre'), ('M', 'Mujer')],label="Genero")
     first_name = forms.CharField(required=True, label="Nombre")
     last_name = forms.CharField(required=True, label="apellido")
-    address = forms.CharField(widget=forms.Textarea , label="Dirección")
-    password = forms.CharField(widget=forms.PasswordInput, label="Contraseña")
-    widget = {
-        'password': forms.PasswordInput(),
-    }
-    profile_pic = forms.ImageField(label="Foto")
-
-class CustomUserForm(FormSettings):
-    email = forms.EmailField(required=True, label="Correo electrónico")
-    gender = forms.ChoiceField(choices=[('H', 'Hombre'), ('M', 'Mujer')])
-    first_name = forms.CharField(required=True, label="Nombre")
-    last_name = forms.CharField(required=True, label="apellido")
-    address = forms.CharField(widget=forms.Textarea , label="Dirección")
+    address = forms.CharField(required=True , label="Telefono")
     password = forms.CharField(widget=forms.PasswordInput, label="Contraseña")
     widget = {
         'password': forms.PasswordInput(),
@@ -45,36 +33,53 @@ class CustomUserForm(FormSettings):
             for field in CustomUserForm.Meta.fields:
                 self.fields[field].initial = instance.get(field)
             if self.instance.pk is not None:
-                self.fields['password'].widget.attrs['placeholder'] = "Complete esto solo si desea actualizar la contraseña"
+                self.fields['password'].widget.attrs['placeholder'] = "Complete esto, solo si desea actualizar la contraseña"
 
     def clean_email(self, *args, **kwargs):
         formEmail = self.cleaned_data['email'].lower()
         if self.instance.pk is None:  # Insert
             if CustomUser.objects.filter(email=formEmail).exists():
                 raise forms.ValidationError(
-                    "The given email is already registered")
+                    "El correo electrónico proporcionado ya está registrado.")
         else:  # Update
             dbEmail = self.Meta.model.objects.get(
                 id=self.instance.pk).admin.email.lower()
             if dbEmail != formEmail:  # There has been changes
                 if CustomUser.objects.filter(email=formEmail).exists():
-                    raise forms.ValidationError("The given email is already registered")
+                    raise forms.ValidationError("El correo electrónico proporcionado ya está registrado.")
 
         return formEmail
 
     class Meta:
         model = CustomUser
         fields = ['first_name', 'last_name', 'email', 'gender',  'password','profile_pic', 'address' ]
-
-
+        labels = {
+        'first_name': 'Nombre',
+        'last_name': 'Apellido',
+        'email': 'Correo electrónico',
+        'gender': 'Género',
+        'password': 'Contraseña',
+        'profile_pic': 'Foto de perfil',
+        'address': 'Telefono',
+        'course': 'Ciudad',
+        'session': 'Tiempo'
+    }
+   
 class StudentForm(CustomUserForm):
     def __init__(self, *args, **kwargs):
         super(StudentForm, self).__init__(*args, **kwargs)
+        
+       
+        self.fields['password'].initial = '123'
+
 
     class Meta(CustomUserForm.Meta):
         model = Student
-        fields = CustomUserForm.Meta.fields + \
-            ['course', 'session']
+        fields = CustomUserForm.Meta.fields + ['course', 'session']
+        labels = {
+            'course': 'Ciudad',
+            'session': 'Tiempo'
+        }
 
 
 class AdminForm(CustomUserForm):
@@ -94,6 +99,9 @@ class StaffForm(CustomUserForm):
         model = Staff
         fields = CustomUserForm.Meta.fields + \
             ['course' ]
+        label = {
+            'course':'Ciudad'
+        }
 
 
 class CourseForm(FormSettings):
@@ -103,7 +111,7 @@ class CourseForm(FormSettings):
     class Meta:
         fields = ['name']
         model = Course
-
+        labels = {'name': 'Nombre'}
 
 class SubjectForm(FormSettings):
 
@@ -113,6 +121,11 @@ class SubjectForm(FormSettings):
     class Meta:
         model = Subject
         fields = ['name', 'staff', 'course']
+        labels = {
+            'name': 'Nombre',
+            'staff': 'Asesor',
+            'course': 'Ciudad'
+            }
 
 
 class SessionForm(FormSettings):
@@ -193,7 +206,7 @@ class StaffEditForm(CustomUserForm):
 class EditResultForm(FormSettings):
     session_list = Session.objects.all()
     session_year = forms.ModelChoiceField(
-        label="Session Year", queryset=session_list, required=True)
+        label="Tiempo", queryset=session_list, required=True)
 
     def __init__(self, *args, **kwargs):
         super(EditResultForm, self).__init__(*args, **kwargs)
@@ -201,3 +214,10 @@ class EditResultForm(FormSettings):
     class Meta:
         model = StudentResult
         fields = ['session_year', 'subject', 'student', 'test', 'exam']
+        labels ={
+            'session_year':'Tiempo',
+            'subject': 'Programa',
+            'student': 'Lead',
+            'test': 'Detalle',
+            'exam': 'Resultado Cita'
+        }
