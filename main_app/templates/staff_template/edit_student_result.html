@@ -7,7 +7,6 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <!-- elementos de formulario general -->
                     <form method="POST">
                         {% csrf_token %}
                 <div class="card card-dark">
@@ -15,26 +14,19 @@
                         <h3 class="card-title">{{page_title}}</h3>
                     </div>
 
-       
-                    <!-- /.card-header -->
-                    <!-- inicio del formulario -->
                     <div class="card-body">
-
-
-                     
 
                  {{ form }}
 
                     </div>
-                    <!-- /.card-body -->
 
                     <div class="card-footer">
-                        <button type="submit" id='update_result' class="btn btn-primary btn-block">Actualizar Resultado</button>
+                        <button type="submit" id='update_result' class="btn btn-primary btn-block">Actualizar </button>
                
                     </div>
                 </form>
                 </div>
-                <!-- /.card -->
+
 
             </div>
         </div>

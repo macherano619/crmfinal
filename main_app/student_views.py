@@ -126,12 +126,12 @@ def student_feedback(request):
                 obj.student = student
                 obj.save()
                 messages.success(
-                    request, "Feedback submitted for review")
+                    request, "Feedback enviado para revisión")
                 return redirect(reverse('student_feedback'))
             except Exception:
                 messages.error(request, "Could not Submit!")
         else:
-            messages.error(request, "Form has errors!")
+            messages.error(request, "El formulario tiene errores!")
     return render(request, "student_template/student_feedback.html", context)
 
 
@@ -168,9 +168,9 @@ def student_view_profile(request):
                 messages.success(request, "Profile Updated!")
                 return redirect(reverse('student_view_profile'))
             else:
-                messages.error(request, "Invalid Data Provided")
+                messages.error(request, "Datos no válidos proporcionados")
         except Exception as e:
-            messages.error(request, "Error Occured While Updating Profile " + str(e))
+            messages.error(request, "Se produjo un error al actualizar el perfil " + str(e))
 
     return render(request, "student_template/student_view_profile.html", context)
 

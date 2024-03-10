@@ -217,7 +217,7 @@ def manage_student(request):
     students = CustomUser.objects.filter(user_type=3)
     context = {
         'students': students,
-        'page_title': 'Gestionar Estudiantes'
+        'page_title': 'Gestionar Leads'
     }
     return render(request, "hod_template/manage_student.html", context)
 
@@ -613,7 +613,7 @@ def admin_view_profile(request):
 def admin_notify_staff(request):
     staff = CustomUser.objects.filter(user_type=2)
     context = {
-        'page_title': "Enviar Notivicaciones a Profesores",
+        'page_title': "Notivicaciones",
         'allStaff': staff
     }
     return render(request, "hod_template/staff_notification.html", context)

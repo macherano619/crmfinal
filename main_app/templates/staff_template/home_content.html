@@ -2,8 +2,8 @@
 {% load static %}
 {% block page_title %}{{page_title}}{% endblock page_title %}
 {% block content %}
-<section class="content">
-    <div class="container-fluid">
+<section class="content ">
+    <div class="container-fluid ">
         <!-- Cajas pequeñas (Estadísticas) -->
         <div class="row">
             <div class="col-lg-3 col-6">
@@ -12,7 +12,7 @@
                     <div class="inner">
                         <h3>{{total_students}}</h3>
 
-                        <p>Total Estudiantes</p>
+                        <p>Total Leads</p>
                     </div>
                     <div class="icon">
                       <i class="nav-icon fas fa-user-graduate"></i>
@@ -20,44 +20,14 @@
                    
                 </div>
             </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- Caja pequeña -->
-                <div class="small-box bg-success">
-                    <div class="inner">
-                        <h3>{{total_attendance}}</h3>
-
-                        <p>Total Asistencias Tomadas</p>
-                    </div>
-                    <div class="icon">
-                      <i class="nav-icon fas fa-calendar-alt"></i>
-                    </div>
-                   
-                </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- Caja pequeña -->
-                <div class="small-box bg-maroon">
-                    <div class="inner">
-                        <h3>{{total_leave}}</h3>
-
-                        <p>Total Solicitudes de Ausencia</p>
-                    </div>
-                    <div class="icon">
-                      <i class="nav-icon fas fa-sign-out-alt"></i>
-                    </div>
-                   
-                </div>
-            </div>
-            <!-- ./col -->
+           
             <div class="col-lg-3 col-6">
                 <!-- Caja pequeña -->
                 <div class="small-box bg-danger">
                     <div class="inner">
                         <h3>{{total_subject}}</h3>
 
-                        <p>Total Materias</p>
+                        <p>Total Programas</p>
                     </div>
                     <div class="icon">
                       <i class="nav-icon fas fa-book"></i>
@@ -119,7 +89,7 @@
   <script>
       $(document).ready(function(){
         var donutData        = {
-            labels: ['Asistencia', 'Ausencia'],
+            labels: ['Leads', ''],
             datasets: [
               {
                 data:[{{total_attendance}}, {{total_leave}}],

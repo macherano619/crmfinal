@@ -92,39 +92,38 @@
 </div><!-- /.modal -->
 {% endblock content %}
 {% block custom_js %}
-  <script>
-      $(document).ready(function(){
-          $(".reply_open_modal").click(function(){
-              var id = $(this).val()
-              var name = $(this).parents("tr").children("td:eq(1)").text()
-              $("#reply_name").text(name)
-              $("#id").val(id)
-              
-              
-            })
-            
-            $("#reply_btn").on("click", function(){
-                var id = $("#id").val()
-                var reply = $("#mensaje de respuesta").val()
+<script>
+    $(document).ready(function(){
+        $(".reply_open_modal").click(function(){
+            var id = $(this).val();
+            var name = $(this).parents("tr").children("td:eq(1)").text();
+            $("#reply_name").text(name);
+            $("#id").val(id);
+        });
+        
+        $("#reply_btn").on("click", function(){
+            var id = $("#id").val();
+            var reply = $("#reply_message").val(); // Corregido aquí
 
-                $.ajax({
-                    url: "{% url 'staff_feedback_message' %}",
-                    type:'POST',
-                    data:{
-                          id:id,
-                          reply:reply
-                    }
-                }).done(function(response){
-                    if (response == "True"){
-                        alert("Enviado")
-                        location.reload()
-                    }else{
-                        alert("No se pudo enviar la respuesta")
-                    }
-                }).fail(function(response){
-                    alert("Error Occured. ")
-                })
-          })
-      })
-  </script>
+            $.ajax({
+                url: "{% url 'staff_feedback_message' %}",
+                type:'POST',
+                data:{
+                    id:id,
+                    reply:reply
+                }
+            }).done(function(response){
+                if (response == "True"){
+                    alert("Enviado");
+                    location.reload();
+                }else{
+                    alert("No se pudo enviar la respuesta");
+                }
+            }).fail(function(response){
+                alert("Error Occurred.");
+            });
+        });
+    });
+</script>
+
 {% endblock custom_js %}

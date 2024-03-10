@@ -26,7 +26,7 @@ def staff_home(request):
         subject_list.append(subject.name)
         attendance_list.append(attendance_count)
     context = {
-        'page_title': 'Staff Panel - ' + str(staff.admin.last_name) + ' (' + str(staff.course) + ')',
+        'page_title': 'Panel Asesores - ' + str(staff.admin.last_name) + ' (' + str(staff.course) + ')',
         'total_students': total_students,
         'total_attendance': total_attendance,
         'total_leave': total_leave,
@@ -183,7 +183,7 @@ def staff_feedback(request):
                 obj = form.save(commit=False)
                 obj.staff = staff
                 obj.save()
-                messages.success(request, "Feedback submitted for review")
+                messages.success(request, "Feedback enviado para revisión")
                 return redirect(reverse('staff_feedback'))
             except Exception:
                 messages.error(request, "Could not Submit!")
