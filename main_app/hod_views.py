@@ -246,7 +246,7 @@ def edit_staff(request, staff_id):
     context = {
         'form': form,
         'staff_id': staff_id,
-        'page_title': 'Edit Staff'
+        'page_title': 'Editar Asesor'
     }
     if request.method == 'POST':
         if form.is_valid():
@@ -295,7 +295,7 @@ def edit_student(request, student_id):
     context = {
         'form': form,
         'student_id': student_id,
-        'page_title': 'Edit Student'
+        'page_title': 'Editar Cliente'
     }
     if request.method == 'POST':
         if form.is_valid():

@@ -52,6 +52,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            
         },
     },
 ]
@@ -73,7 +74,7 @@ DATABASES = {
 # Otras configuraciones
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LANGUAGE_CODE = 'es'  # Idioma español
-TIME_ZONE = 'America/Mexico_City'  # Zona horaria
+TIME_ZONE = 'America/Guayaquil'  # Zona horaria
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
