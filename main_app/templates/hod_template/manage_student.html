@@ -20,8 +20,8 @@
                                     <th>#</th>
                                     <th>Nombre Completo</th>
                                     <th>Correo</th>
-                                    <th>Genero</th>
-                                    <th>Curso</th>
+                                    <th>Telefono</th>
+                                    <th>Ciudad</th>
                                     <th>Foto</th>
                                     <th>Aciones</th>
                                 </tr>
@@ -32,11 +32,11 @@
                                     <td>{{ forloop.counter }}</td>
                                     <td>{{student.last_name}}, {{student.first_name}}</td>
                                     <td>{{student.email}}</td>
-                                    <td>{{student.gender}}</td>
+                                    <td>{{student.address}}</td>
                                     <td>{{student.student.course.name}}</td>
                                     <td>
                                         {% if student.profile_pic == ""  %}
-                                        No Image
+                                        No hay Foto
                                         {% else %}
                                         <img class="img img-fluid mb-2" height="56" width="56"
                                             src="{{student.profile_pic}}" alt="">

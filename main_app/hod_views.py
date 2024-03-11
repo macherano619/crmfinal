@@ -158,7 +158,7 @@ def add_course(request):
     form = CourseForm(request.POST or None)
     context = {
         'form': form,
-        'page_title': 'Agregar Curso'
+        'page_title': 'Agregar Programa'
     }
     if request.method == 'POST':
         if form.is_valid():
@@ -368,7 +368,7 @@ def edit_subject(request, subject_id):
     context = {
         'form': form,
         'subject_id': subject_id,
-        'page_title': 'Editar Materia'
+        'page_title': 'Editar Programa'
     }
     if request.method == 'POST':
         if form.is_valid():
